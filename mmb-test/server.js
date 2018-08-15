@@ -23,4 +23,10 @@ app.post("/api/reverseString", function(req, res) {
   res.json(string);
 });
 
+app.post("/api/backendAPI", function(req, res) {
+  console.log(req.body);
+  //if request is a get then run get function, if it is a post then run the post
+  res.json("hello");
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
