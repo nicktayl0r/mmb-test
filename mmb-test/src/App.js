@@ -59,8 +59,7 @@ class App extends Component {
       })
     })
       .then(function(response) {
-        console.log(response.json());
-        return response.json();
+        return response;
       })
       .then(function(data) {
         console.log(data);
