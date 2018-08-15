@@ -6,6 +6,36 @@ import Dropdown from "react-dropdown";
 const options = ["GET", "POST"];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { string: "", rString: "" };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({ string: event.target.value });
+  }
+
+  handleSubmit(event) {
+    let state = this.state;
+    // console.log(this.state.string);
+    fetch("http://localhost:5000/api/reverseString", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ string: state.string })
+    })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        state.rString = data;
+        console.dir(state);
+      });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="App">
@@ -18,13 +48,23 @@ class App extends Component {
         </p>
 
         <div className="reverseString">
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <label>
               Reverse a String
-              <input type="text" placeholder="enter a string..." />
+              <input
+                value={this.state.string}
+                onChange={this.handleChange}
+                type="text"
+                placeholder="enter a string..."
+              />
             </label>
             <input type="submit" value="Submit" />
           </form>
+          <div>
+            {" "}
+            Here is the reversed string
+            {this.state.rString}
+          </div>
         </div>
 
         <div className="apiCall">
