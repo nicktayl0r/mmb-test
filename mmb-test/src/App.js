@@ -57,13 +57,14 @@ class App extends Component {
         url: this.state.requestURL,
         method: this.state.requestMethod
       })
-      //     .then(function(response) {
-      //       return response.json();
-      //     })
-      //     .then(function(data) {
-      //       console.log(data);
-      //     })
-    });
+    })
+      .then(function(response) {
+        console.log(response.json());
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data);
+      });
     event.preventDefault();
   }
 
